@@ -30,7 +30,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {
+      {/* {
         ( changeUrl.current_url !== "/login" ? 
         <div className="app container-scroller">
           { navBar }
@@ -54,7 +54,8 @@ function App() {
         <div>
           <AppRoutes/>
         </div> )
-      }
+      } */}
+      <AppRoutes />
       {/* <div className="app container-scroller">
         { navBar }
         <div className="page-body-wrapper">

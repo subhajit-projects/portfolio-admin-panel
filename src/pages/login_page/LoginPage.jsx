@@ -12,7 +12,7 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const logInAction = () => {
         dispatch(ChangeCurrentRoute("/dashboard"))
-        navigate("/dashboad")
+        navigate("/dashboard")
     }
     return (
         <Container  className={style.loginFormSpace}>
