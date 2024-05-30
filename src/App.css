@@ -1,0 +1,54 @@
+.app {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container-scroller {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.main-panel {
+    position: absolute;
+    width: calc(100% - 250px);
+    left: 250px;
+    /* min-height: 100vh; */
+    transition: 0.5s;
+    background-color: #f8f9fa;
+}
+
+.main-panel.active {
+    width: calc(100% - 70px);
+    left: 70px;
+}
+
+.content-wrapper {
+    width: 100%;
+    min-height: 89vh;
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+    position: relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.innerpages_main {
+    width: 100%;
+    min-height: 90vh;
+    padding-left: 30px;
+    padding-top: 20px;
+}
+
+.innerpages {
+    width: 100%;
+    min-height: 86vh;
+    background-color: rgb(255, 255, 255);
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

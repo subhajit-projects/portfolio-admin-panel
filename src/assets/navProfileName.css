@@ -1,0 +1,12 @@
+.profileLook {
+    float: left;
+}
+
+.profileLook > .icon {
+    color: black;
+}
+
+.profileLook > span {
+    color: black;
+    padding: 5px;
+}

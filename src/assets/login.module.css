@@ -1,0 +1,57 @@
+.loginFormSpace {
+    width: 30%;
+    min-height: 450px;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 5px;
+    padding: 50px;
+}
+
+.welcome {
+    margin-top: 30px;
+    color: #999999;
+}
+
+.welcome > h6 {
+    margin-bottom: 0;
+    font-size: 17px;
+}
+
+.welcome > p {
+    font-size: 13px;
+}
+
+.loginForm input[type="text"],
+.loginForm input[type="password"] {
+    padding: 15px;
+    border: 1px solid #b6b6b6;
+}
+
+.loginForm input[type="text"]:focus,
+.loginForm input[type="password"]:focus {
+    background-color: #fff;
+    border-color: #b6b6b6;
+    box-shadow: 0 0 0 0.25rem #b6b6b679;
+}
+
+.loginForm input[type="checkbox"]:focus {
+    border-color: #b6b6b6;
+    box-shadow: 0 0 0 0.25rem #b6b6b679;
+}
+
+.login_btn {
+    width: 100%;
+}
+
+.forgot_pwd {
+    text-align: center;
+}
+.forgot_pwd > h6 {
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+}

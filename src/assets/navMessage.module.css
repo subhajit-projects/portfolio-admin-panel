@@ -1,0 +1,45 @@
+.message {
+    float: left;
+}
+
+.message_icon {
+    color: black;
+    position: relative;
+}
+.notify {
+    content: "";
+    position: absolute;
+    top: 11px;
+    right: 19px;
+    width: 9px;
+    height: 9px;
+    padding: 0px;
+    border: 1px solid rgb(255, 255, 255);
+    background-color: #f73a4c;
+    border-radius: 50px;
+    animation-name: notify;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes notify {
+    0% {
+        /* width: 7px;
+        height: 7px; */
+        padding: 0px;
+    }
+    15% {
+        /* width: 9px;
+        height: 9px; */
+        padding: 4px
+    }
+    30% {
+        padding: 0px;
+    }
+    40% {
+        padding: 4px;
+    }
+    50% {
+        padding: 0px;
+    }
+}
