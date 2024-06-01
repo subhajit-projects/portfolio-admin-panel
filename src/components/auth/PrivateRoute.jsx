@@ -1,11 +1,11 @@
 import { Navigate } from "react-router-dom";
-import AdminLayout from "../../shared/AdminLayout";
+import AdminPanelLayout from "../../shared/AdminPanelLayout";
+import { IsLoggedIn } from "./Auth";
 
 const PrivateRoute = () => {
-    let isLoggedIn = true;
 
-    if(isLoggedIn) {
-        return <AdminLayout />
+    if(IsLoggedIn()) {
+        return <AdminPanelLayout />
     } else {
         return <Navigate to={"/login"}/>
     }
