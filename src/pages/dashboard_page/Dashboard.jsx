@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { CheckLogin } from '../../shared/CommonFunction';
 import LoginService from '../../services/LoginService';
 
 const Dashboard = () => {
     useEffect(() => {
-        CheckLogin();
+
     }, []);
 
     const click = () =>{
