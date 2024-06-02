@@ -10,6 +10,7 @@ class ServiceConfig {
             baseURL: 'http://127.0.0.1:8000/api/v1/',
             timeout: 1000,
             headers: {
+                'Access-Control-Allow-Headers': 'content-type',
                 'Content-Type': 'application/json',
                 'REQUEST-FROM': 'WEB',
             }
