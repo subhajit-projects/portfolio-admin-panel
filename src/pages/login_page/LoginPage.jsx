@@ -37,11 +37,12 @@ const LoginPage = () => {
     }
 
     useEffect(() => {
-
+        
     }, [userDetails])
 
     return (
         <Container  className={style.loginFormSpace}>
+            {console.log(process.env.REACT_APP_API_BASE_URL)}
             <h5>Main Admin panel</h5>
             <div className={style.welcome}>
                 <h6>Welcome! Admin.</h6>
