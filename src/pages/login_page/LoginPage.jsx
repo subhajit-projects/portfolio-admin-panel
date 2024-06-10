@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ChangeCurrentRoute } from "../../myredux/actions/ChangeCurrentRoute";
 import LoginService from "../../services/LoginService";
 import { Controller, useForm } from "react-hook-form";
+import { setLoggedIn } from "../../components/auth/Auth";
 
 const LoginPage = () => {
     const [userDetails, setUserDetails] = useState({user_name: "", password: ""});
@@ -32,7 +33,7 @@ const LoginPage = () => {
         resp.then( r => {
             // console.log("From component", r)
         }).catch( e => {
-            // console.log("From component error", e)
+            console.log("From component error", e)
         })
         
     }
@@ -44,11 +45,19 @@ const LoginPage = () => {
         // API CALL
         const resp = LoginService('/auth/', event)
         resp.then( r => {
-            console.log("From component", r)
+            // console.log("From component", r)
+            let resp = r.data;
+            let {token} = resp.data;
+            setLoggedIn(token);
+            navigate("/dashboard")
         }).catch( e => {
-            console.log("From component error", e)
-            const resp = e.response.data
-            setError(resp.error.field_name, {message: resp.error.message})
+            // console.log("From component error", e, e.response)
+            if(e.response !== undefined) {
+                const resp = e.response.data
+                setError(resp.error.field_name, {message: resp.error.message})
+            } else {
+                console.log("Network error")
+            }
         })
         
 
