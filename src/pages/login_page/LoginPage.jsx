@@ -1,66 +1,98 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container , Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartLine, faAd, faCartArrowDown, faClipboardList, faCubes } from '@fortawesome/free-solid-svg-icons'
+import { faRightToBracket } from '@fortawesome/free-solid-svg-icons'
 import style from "../../assets/login.module.css";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { ChangeCurrentRoute } from "../../myredux/actions/ChangeCurrentRoute";
 import LoginService from "../../services/LoginService";
+import { Controller, useForm } from "react-hook-form";
+import { setLoggedIn } from "../../components/auth/Auth";
 
 const LoginPage = () => {
-    const [userDetails, setUserDetails] = useState({user_name: "", password: ""})
+    const [show, setShow] = useState(false);
+
+    const {control, handleSubmit, setError, formState: {errors}} = useForm({
+        defaultValues: {
+            user_name: "test12",
+            password: "1234"
+        },
+    });
+
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const logInAction = () => {
-        // dispatch(ChangeCurrentRoute("/dashboard"))
-        // navigate("/dashboard")
 
-        const resp = LoginService('/auth/', userDetails)
+    const submitLogin = (event) => {
+        // console.log(event)
+        // setError("user_name", {type: "", message: "Not found"})  // Code ok. Working
+
+        // API CALL
+        const resp = LoginService('/auth/', event)
         resp.then( r => {
-            // console.log("From component", r)
+            let resp = r.data;
+            let {token} = resp.data;
+            setLoggedIn(token);
+            navigate("/dashboard")
         }).catch( e => {
-            // console.log("From component error", e)
-        })
-        
-    }
-    
-    const onChangeHandlaer = (e) => {
-        const copy = {...userDetails};
-        if(e.target.name === "user_name") {
-            copy.user_name = e.target.value;
-        }
-        if(e.target.name === "password") {
-            copy.password = e.target.value;
-        }
-        setUserDetails(copy);
-    }
+            if(e.response !== undefined) {
+                const resp = e.response.data
+                setError(resp.error.field_name, {message: resp.error.message})
+            } else {
+                console.log("Network error")
+            }
+        });
 
-    useEffect(() => {
-        
-    }, [userDetails])
+    }
 
     return (
         <Container  className={style.loginFormSpace}>
-            {console.log(process.env.REACT_APP_API_BASE_URL)}
             <h5>Main Admin panel</h5>
             <div className={style.welcome}>
                 <h6>Welcome! Admin.</h6>
                 <p>Sign in to continue.</p>
             </div>
             <div>
-                <Form className={style.loginForm}>
+                <Form className={style.loginForm} onSubmit={handleSubmit(submitLogin)}>
                     <Form.Group className="mb-3">
-                        <Form.Control type="text" name="user_name" placeholder="Enter user id" value={userDetails.user_name} onChange={onChangeHandlaer} />
+                        <Controller
+                            name="user_name"
+                            control={control}
+                            rules={{
+                                required: {value: true, message: "User name Required"},
+                                minLength: {value: 4, message: "Please enter valid user name"}
+                            }}
+                            render={({field}) => (
+                                <Form.Control 
+                                    type="text" 
+                                    isInvalid={errors.user_name}
+                                    {...field}
+                                    placeholder="Enter user id" 
+                                />)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {(errors.user_name!== undefined) ? errors.user_name.message : ""}
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-2">
-                        <Form.Control type="password" name="password" placeholder="Enter password" value={userDetails.password} onChange={onChangeHandlaer} />
+                        <Controller
+                            name="password" 
+                            control={control}
+                            rules={{required: true}}
+                            render={({field}) => (
+                                <Form.Control 
+                                    type={show ? "text" : "password"}
+                                    isInvalid={errors.password}
+                                    {...field}
+                                    placeholder="Enter password" 
+                                />)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {(errors.password!== undefined) ? errors.password.message : ""}
+                        </Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="show_passwordx">
-                        <Form.Check type="checkbox" label="Show password" />
+                        <Form.Check type="checkbox" label="Show password" onClick={() => {setShow(!show)}} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="show_passwordx">
-                        <Button variant="secondary" className={style.login_btn} onClick={logInAction}>Login</Button>
+                        <Button variant="secondary" type="submit" className={style.login_btn}><FontAwesomeIcon icon={faRightToBracket} /> Login</Button>
                     </Form.Group>
                     <Form.Group className={`mb-3 ${ style.forgot_pwd}`}>
                         <h6>Forgot password?</h6>
@@ -72,3 +104,6 @@ const LoginPage = () => {
 }
 
 export default LoginPage;
+
+
+// https://www.youtube.com/watch?v=adRIZPQ9atk
