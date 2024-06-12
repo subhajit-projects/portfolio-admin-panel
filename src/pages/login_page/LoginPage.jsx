@@ -50,7 +50,6 @@ const LoginPage = () => {
                 <p>Sign in to continue.</p>
             </div>
             <div>
-                {/* <Form noValidate className={style.loginForm} validated={isFormValid} onSubmit={handleSubmit(submitLogin)}> */}
                 <Form className={style.loginForm} onSubmit={handleSubmit(submitLogin)}>
                     <Form.Group className="mb-3">
                         <Controller
