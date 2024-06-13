@@ -1,4 +1,5 @@
 import ServiceConfig from "./ServiceConfig"
+import { SuccessToast, ErrorToast } from "../shared/ToastMessage";
 
 const LoginService = async(endpoint='', postData={}) => {
     const serviceConfig = new ServiceConfig();
@@ -20,7 +21,10 @@ const LoginService = async(endpoint='', postData={}) => {
             console.log("From service", resp)
             resolve(resp)
         }).catch( err => {
-            console.log("From service Error ", err)
+            console.log("From service Error ", err, err.response);
+            if(err.response === undefined) {
+                ErrorToast("Network Error!!!")
+            }
             reject(err)
         })
     })
