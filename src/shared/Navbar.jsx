@@ -3,13 +3,14 @@ import { NavLink } from 'react-router-dom';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux";
 import { ChangeSidebarAction } from '../myredux/actions/ChangeSitebarAction';
-import { ChangeCurrentRoute } from "../myredux/actions/ChangeCurrentRoute";
+// import { ChangeCurrentRoute } from "../myredux/actions/ChangeCurrentRoute";
 import NavProfileName from "./NavProfileName";
 import NavMessage from "./NavMessage";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import "../assets/navbar.css";
+import { setLoggedOut } from "../components/auth/Auth";
 
 const HeadNavbar = () => {
     const isSidePanel = useSelector(state => state.sidebar);
@@ -51,7 +52,8 @@ const HeadNavbar = () => {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/lock">Lock</NavDropdown.Item>
                             {/* <NavDropdown.Item href="/login">Logout</NavDropdown.Item> */}
-                            <NavLink to="/login" className="dropdown-item" onClick={() => {dispatch(ChangeCurrentRoute("/login"));  dispatch(ChangeSidebarAction("alternative"));}}>Logout</NavLink>
+                            {/* <NavLink to="/login" className="dropdown-item" onClick={() => {dispatch(ChangeCurrentRoute("/login"));  dispatch(ChangeSidebarAction("alternative"));}}>Logout</NavLink> */}
+                            <NavLink to="/login" className="dropdown-item" onClick={() => {setLoggedOut();}}>Logout</NavLink>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
