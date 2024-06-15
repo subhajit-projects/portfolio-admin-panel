@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import { ErrorToast } from "../../shared/ToastMessage";
 
 var session_name = 'portfolio-adminpanel-user'
 
@@ -19,6 +20,7 @@ export const setLoggedIn = (loginData) => {
 
 
 export const setLoggedOut = () => {
+    ErrorToast("Logged Out Successful.")
     sessionStorage.removeItem(session_name);
     // reset all redux data
 }

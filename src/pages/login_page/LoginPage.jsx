@@ -9,6 +9,7 @@ import { Controller, useForm } from "react-hook-form";
 import { setLoggedIn } from "../../components/auth/Auth";
 import { useDispatch } from "react-redux";
 import { NavbarProfileName } from "../../myredux/actions/NavbarContentAction";
+import { SuccessToast } from "../../shared/ToastMessage";
 
 const LoginPage = () => {
     const [show, setShow] = useState(false);
@@ -34,7 +35,8 @@ const LoginPage = () => {
             let {token} = resp.data;
             setLoggedIn(token);
             const {full_name} = resp.data.user
-            dispatch(NavbarProfileName(full_name))
+            dispatch(NavbarProfileName(full_name));
+            SuccessToast("Login Success")
             navigate("/dashboard")
         }).catch( e => {
             if(e.response !== undefined) {
