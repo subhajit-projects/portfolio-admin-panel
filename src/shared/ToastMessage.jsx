@@ -14,7 +14,7 @@ const PromiseToast = (resp) => {
         resp,
         {
             pending: 'Fatching data...',
-            success: 'Success',
+            success: 'Data Fetch Success',
             error: 'Something went wrong!!'
         }
     )

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { ChangeCurrentRoute } from "../myredux/actions/ChangeCurrentRoute";
 import { ChangeSidebarAction } from '../myredux/actions/ChangeSitebarAction';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartLine, faAd, faCartArrowDown, faClipboardList, faCubes, faUserShield } from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faAd, faCartArrowDown, faClipboardList, faCubes, faUserShield, faBriefcase } from '@fortawesome/free-solid-svg-icons'
 import "../assets/sidebar.css";
 
 const Sidebar = () => {    
@@ -23,6 +23,12 @@ const Sidebar = () => {
                         <NavLink to="/dashboard" onClick={() => {dispatch(ChangeCurrentRoute("/dashboard"));}}>
                             <span><FontAwesomeIcon className="icon" icon={faChartLine} /></span>
                             <span>Dashboard</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/experience" onClick={() => {dispatch(ChangeCurrentRoute("/experience"));}}>
+                            <span><FontAwesomeIcon className="icon" icon={faBriefcase} /></span>
+                            <span>Experience</span>
                         </NavLink>
                     </li>
                     <li className="multiple">

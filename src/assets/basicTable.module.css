@@ -1,0 +1,15 @@
+.table:focus,
+.table_status:focus,
+.textField:focus,
+.dropDown:focus {
+    border-color: #c2c2c2;
+    box-shadow: 0 0 0 0.25rem #e2e2e2;
+}
+
+.floating {
+    position: absolute;
+    right: 35px;
+    bottom: 50px;
+    padding: 15px 20px !important;
+    border-radius: 50px;
+}
