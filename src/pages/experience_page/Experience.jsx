@@ -10,14 +10,19 @@ class Experience extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isApiCall: false,
             experience: []
         }
         this.callApi = false;
     }
 
     getExperienceData = () => {
-        if(this.callApi == false) {
-            this.callApi = true
+        // if(this.callApi == false) {
+            // this.callApi = true
+        if(this.state.isApiCall === false) {
+            const c = this.state;
+            c.isApiCall = true;
+            this.setState(c)
             const resp = getAllExperienceService('/experience/');
             PromiseToast(resp);
             resp.then(r => {
@@ -37,6 +42,7 @@ class Experience extends Component {
                         }
                         </>);
                     copy.experience.push({data: data});
+                    copy.isApiCall = false;
                     this.setState(copy)
                 });
             }).catch(e => {
