@@ -10,8 +10,8 @@ const BasicTable = (props) => {
                     <Form.Control className={style.table} type="text" placeholder="search by admin name" />
                 </Col>
                 <Col md={2}>
-                    <select class={`form-select `+ style.table_status} aria-label="Default select example">
-                        <option selected>Status</option>
+                    <select className={`form-select `+ style.table_status} aria-label="Default select example" defaultValue="">
+                        <option value="">Status</option>
                         <option value="A">Active</option>
                         <option value="I">Inactive</option>
                         <option value="S">Suspended</option>
@@ -27,16 +27,16 @@ const BasicTable = (props) => {
                     </tr> */}
                     <tr>
                         {props.header.map((data, key) => {
-                            return <th style={data.style}>{data.title}</th>
+                            return <th key={key} style={data.style}>{data.title}</th>
                         })}
                     </tr>
                 </thead>
                 <tbody>
                     {props.data.map((data, key) => {
                         return (
-                            <tr>
+                            <tr key={key}>
                                 {data.data.map((tableRawData, key) => {
-                                    return <td>{tableRawData}</td>
+                                    return <td key={key}>{tableRawData}</td>
                                 })}
                             </tr>
                         )
