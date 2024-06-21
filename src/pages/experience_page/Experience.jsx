@@ -35,7 +35,7 @@ class Experience extends Component {
                     data.push(d.designation)
                     data.push(d.company_name)
                     data.push(<Form.Check type="switch" id="custom-switch" checked={true} disabled />)
-                    data.push(<><Button variant="success" size="sm" onClick={() => this.experienceDetailPage()}>Edit</Button> &nbsp;
+                    data.push(<><Button variant="success" size="sm" onClick={() => this.experienceDetailPage(d.experience_id)}>Edit</Button> &nbsp;
                         {d.is_continue ? 
                             <><Button variant="danger" size="sm">Resigned</Button> &nbsp;</>
                             :
@@ -59,8 +59,8 @@ class Experience extends Component {
         this.getExperienceData()
     }
 
-    experienceDetailPage() {
-        this.props.navigate('aaaaaaaaaaaaa')
+    experienceDetailPage(id) {
+        this.props.navigate(id);
     }
 
     render () {

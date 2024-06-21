@@ -5,6 +5,7 @@ const PrivateRoute = lazy(() => import('./components/auth/PrivateRoute'));
 const Dashboard = lazy(() => import('./pages/dashboard_page/Dashboard'));
 const LoginPage = lazy(() => import('./pages/login_page/LoginPage'));
 const ExperiencePage = lazy(() => import('./pages/experience_page/Experience'));
+const ExperienceForm = lazy(() => import('./pages/experience_page/ExperienceForm'));
 const ItemPage = lazy(() => import('./pages/product_page/Product'));
 const CategoryPage = lazy(() => import('./pages/category_page/Category'));
 const AdminPage = lazy(() => import('./pages/admin_page/Admin'));
@@ -21,6 +22,7 @@ class AppRoutes extends Component {
                         <Route path="/" exact element={ <Navigate replace to="/dashboard" />} />
                         <Route path="/dashboard" exact element={ <Dashboard /> } />
                         <Route path="/experience" exact element={ <ExperiencePage /> } />
+                        <Route path="/experience/:experience_id" exact element={ <ExperienceForm /> } />
                         <Route path="/item" exact element={ <ItemPage /> } />
                         <Route path="/category" exact element={ <CategoryPage /> } />
                         <Route path="/manage-admin" exact element={ <AdminPage /> } />
