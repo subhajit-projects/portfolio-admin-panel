@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import BasicTable from "../../components/tables/BasicTable";
 import { Button, ToggleButton } from 'react-bootstrap';
 import { getAllExperienceService } from "../../services/ExperienceService";
@@ -33,8 +34,8 @@ class Experience extends Component {
                     data.push(key+1)
                     data.push(d.designation)
                     data.push(d.company_name)
-                    data.push(<Form.Check type="switch" id="custom-switch" checked="true" disabled />)
-                    data.push(<><Button variant="success" size="sm" >Edit</Button> &nbsp;
+                    data.push(<Form.Check type="switch" id="custom-switch" checked={true} disabled />)
+                    data.push(<><Button variant="success" size="sm" onClick={() => this.experienceDetailPage()}>Edit</Button> &nbsp;
                         {d.is_continue ? 
                             <><Button variant="danger" size="sm">Resigned</Button> &nbsp;</>
                             :
@@ -57,6 +58,11 @@ class Experience extends Component {
         // console.log("adadadasd");
         this.getExperienceData()
     }
+
+    experienceDetailPage() {
+        this.props.navigate('aaaaaaaaaaaaa')
+    }
+
     render () {
         const tableHeader = [
             {
@@ -130,4 +136,17 @@ class Experience extends Component {
     }
 }
 
-export default Experience;
+
+
+// Bind with hooks
+function addHookTo(Component) {
+    function CompWithHook(props) {
+      const navigate = useNavigate();
+  
+      return <Component {...props} navigate={navigate} />;
+    }
+  
+    return CompWithHook;
+  }
+
+export default addHookTo(Experience);
