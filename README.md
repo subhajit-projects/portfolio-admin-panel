@@ -4,6 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Redux tutorial link [Youtube](https://www.youtube.com/watch?v=CVpUuw9XSjY)
 
+Date Time picker link [GitHub](https://github.com/arqex/react-datetime?tab=readme-ov-file)
+
 
 # How to run
 - Clone this project by using `git clone` comment.
