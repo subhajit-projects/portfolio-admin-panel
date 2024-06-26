@@ -1,10 +1,24 @@
 import React, { useEffect } from 'react'
 import { useParams } from "react-router-dom";
 import { Row, Col, Button, Table, Form } from 'react-bootstrap';
+import Datetime from 'react-datetime';
+import moment from 'moment';
+import "react-datetime/css/react-datetime.css";
 import style from '../../assets/commonFormFields.css';
 
 const ExperienceForm = () => {
     const params = useParams();
+
+    const datetimeInputProps = {
+        placeholder: 'Work Start Date',
+    }
+    const blockStartDate = (current) => {
+        var yesterday = moment().subtract( 1, 'day' );
+        return current.isBefore( yesterday );
+    }
+    const endDatetimeInputProps = {
+        placeholder: 'Work End Date',
+    }
     return (
         <Form>
             {/* {params.admin_id} */}
@@ -28,14 +42,25 @@ const ExperienceForm = () => {
                 <Col md={6}>
                     <Form.Group className="mb-3" controlId="company">
                         <Form.Label>Start Date</Form.Label>
-                        <Form.Control className={style.textField} type="text" placeholder="Enter your company name" />
+                        {/* <Form.Control className={style.textField} type="text" placeholder="Enter your company name" /> */}
+                        <Datetime 
+                            inputProps={ datetimeInputProps } 
+                            timeFormat={ false }
+                            dateFormat={ "DD-MMM-YYYY" }
+                            closeOnSelect={true}
+                            isValidDate={ blockStartDate }
+                        />
                         <Form.Check inline name="box" id="asd" type="checkbox" label="Continue" className={style.textField} />
                     </Form.Group>
                 </Col>
                 <Col md={6}>
                     <Form.Group className="mb-3" controlId="company">
                         <Form.Label>End Date</Form.Label>
-                        <Form.Control className={style.textField} type="text" placeholder="Enter your company name" />
+                        <Datetime 
+                            inputProps={ endDatetimeInputProps } 
+                            timeFormat={ false }
+                            dateFormat={ "DD-MMM-YYYY" }
+                        />
                     </Form.Group>
                 </Col>
             </Row>
@@ -43,8 +68,14 @@ const ExperienceForm = () => {
                 <Col md={12}>
                     <Form.Group className="mb-3" controlId="company">
                         <Form.Label>Responsibility</Form.Label>
-                        <Form.Control className={style.textField} type="text" placeholder="Enter your company name" />
+                        <Form.Control as="textarea" rows={3} placeholder="Enter your responsibility / work" />
                     </Form.Group>
+                </Col>
+            </Row>
+            <Row>
+                <Col md={12} className="text-center">
+                    <Button variant="success" size="sm">Save</Button> &nbsp;
+                    <Button variant="warning" size="sm">Back</Button> &nbsp;
                 </Col>
             </Row>
             {/* <Row>
