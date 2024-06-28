@@ -59,6 +59,10 @@ class Experience extends Component {
         this.getExperienceData()
     }
 
+    addExperience() {
+        this.props.navigate("add")
+    }
+
     experienceDetailPage(id) {
         this.props.navigate(id);
     }
@@ -127,6 +131,7 @@ class Experience extends Component {
         ]*/
         return (
             <div>
+                <Button variant="success" className="mb-2" onClick={() => this.addExperience()}>Add New Experience</Button>
                 <BasicTable
                     header={tableHeader}
                     data={tableData}

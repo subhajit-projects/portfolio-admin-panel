@@ -1,13 +1,31 @@
-import React, { useEffect } from 'react'
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from "react-router-dom";
 import { Row, Col, Button, Table, Form } from 'react-bootstrap';
 import Datetime from 'react-datetime';
 import moment from 'moment';
 import "react-datetime/css/react-datetime.css";
 import style from '../../assets/commonFormFields.css';
+import { Controller, useForm } from 'react-hook-form';
 
 const ExperienceForm = () => {
     const params = useParams();
+    const navigate = useNavigate();
+    const [fields, setFields] = useState({
+        designation: "",
+        companyName: "",
+        startDate: ""
+    });
+    const [formMode, setFormMode] = useState("add")
+
+    useEffect(() => {
+        if(params.experience_id !== "add") {
+            setFormMode("edit")
+        }
+    }, []);
+
+    const prevPage = () => {
+        navigate(-1)
+    }
 
     const datetimeInputProps = {
         placeholder: 'Work Start Date',
@@ -19,30 +37,95 @@ const ExperienceForm = () => {
     const endDatetimeInputProps = {
         placeholder: 'Work End Date',
     }
+
+    const { control, handleSubmit, setError, formState: {errors} } = useForm({
+        defaultValues: fields
+    });
+
+    const submitExperince = (event) => {
+        console.log(event)
+    }
+
     return (
-        <Form>
+        <Form onSubmit={handleSubmit(submitExperince)}>
             {/* {params.admin_id} */}
             <Row>
                 <Col md={12}>
                     <Form.Group className="mb-3" controlId="designation">
                         <Form.Label>Designation</Form.Label>
-                        <Form.Control className={style.textField} type="text" placeholder="Enter your designation" />
+                        <Controller
+                            name="designation"
+                            control={control}
+                            rules={{
+                                required: {value: true, message: "Designation Required"},
+                                minLength: {value: 4, message: "Please enter valid Designation"}
+                            }}
+                            render={({field}) => (
+                                <Form.Control 
+                                    type="text" 
+                                    className={style.textField}
+                                    isInvalid={errors.designation}
+                                    {...field}
+                                    placeholder="Enter your designation"
+                                />)}
+                        />
+                        {/* <Form.Control className={style.textField} type="text" placeholder="Enter your designation" /> */}
+                        <Form.Control.Feedback type="invalid">
+                            {(errors.designation!== undefined) ? errors.designation.message : ""}
+                        </Form.Control.Feedback>
                     </Form.Group>
                 </Col>
             </Row>
             <Row>
                 <Col md={12}>
                     <Form.Group className="mb-3" controlId="company">
-                        <Form.Label>Company Name</Form.Label>
-                        <Form.Control className={style.textField} type="text" placeholder="Enter your company name" />
+                        <Form.Label>Company Name</Form.Label>                        
+                        <Controller
+                            name="companyName"
+                            control={control}
+                            rules={{
+                                required: {value: true, message: "Company Name Required"},
+                                minLength: {value: 4, message: "Please enter valid company name"}
+                            }}
+                            render={({field}) => (
+                                <Form.Control 
+                                    type="text" 
+                                    className={style.textField}
+                                    isInvalid={errors.companyName}
+                                    {...field}
+                                    placeholder="Enter your company name"
+                                />)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {(errors.companyName!== undefined) ? errors.companyName.message : ""}
+                        </Form.Control.Feedback>
                     </Form.Group>
                 </Col>
             </Row>
             <Row>
                 <Col md={6}>
-                    <Form.Group className="mb-3" controlId="company">
+                    <Form.Group className="mb-3" controlId="startDate">
                         <Form.Label>Start Date</Form.Label>
-                        {/* <Form.Control className={style.textField} type="text" placeholder="Enter your company name" /> */}
+                        {/*<Controller
+                            name="startDate"
+                            control={control}
+                            rules={{
+                                required: {value: true, message: "Company Name Required"}
+                            }}
+                            render={({field}) => (
+                                <Datetime 
+                                    inputProps={ datetimeInputProps } 
+                                    timeFormat={ false }
+                                    dateFormat={ "DD-MMM-YYYY" }
+                                    closeOnSelect={true}
+                                    isValidDate={ blockStartDate }
+                                    isInvalid={errors.startDate}
+                                    {...field}
+                                />)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                            {(errors.startDate!== undefined) ? errors.startDate.message : ""}
+                        </Form.Control.Feedback>*/}
                         <Datetime 
                             inputProps={ datetimeInputProps } 
                             timeFormat={ false }
@@ -50,11 +133,12 @@ const ExperienceForm = () => {
                             closeOnSelect={true}
                             isValidDate={ blockStartDate }
                         />
+                        
                         <Form.Check inline name="box" id="asd" type="checkbox" label="Continue" className={style.textField} />
                     </Form.Group>
                 </Col>
                 <Col md={6}>
-                    <Form.Group className="mb-3" controlId="company">
+                    <Form.Group className="mb-3" controlId="endDate">
                         <Form.Label>End Date</Form.Label>
                         <Datetime 
                             inputProps={ endDatetimeInputProps } 
@@ -66,7 +150,7 @@ const ExperienceForm = () => {
             </Row>
             <Row>
                 <Col md={12}>
-                    <Form.Group className="mb-3" controlId="company">
+                    <Form.Group className="mb-3" controlId="responsibility">
                         <Form.Label>Responsibility</Form.Label>
                         <Form.Control as="textarea" rows={3} placeholder="Enter your responsibility / work" />
                     </Form.Group>
@@ -74,8 +158,8 @@ const ExperienceForm = () => {
             </Row>
             <Row>
                 <Col md={12} className="text-center">
-                    <Button variant="success" size="sm">Save</Button> &nbsp;
-                    <Button variant="warning" size="sm">Back</Button> &nbsp;
+                    {formMode === "add" ? <Button variant="success" size="sm" type="submit">Save</Button> : <Button variant="success" size="sm" type="submit">Edit</Button>} &nbsp;
+                    <Button variant="warning" size="sm" onClick={prevPage}>Back</Button> &nbsp;
                 </Col>
             </Row>
             {/* <Row>
